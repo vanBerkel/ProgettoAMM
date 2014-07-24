@@ -10,8 +10,13 @@ and open the template in the editor.
         <title>Annis Pier Paolo</title>
     </head>
     <body>
-        <?php
-        // put your code here
-        ?>
+        <page>
+                   <?php
+            // put your code here
+                   
+            ?>
+            
+            <p> Ciao </p>
+        </page>
     </body>
 </html>

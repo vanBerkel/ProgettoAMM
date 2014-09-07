@@ -1,15 +1,15 @@
 <?php
 class DBclass{
                //parametri per la connessione al database
-				private $nomehost = '127.0.0.1';
-				private $nomeuser ='root';
-				private $password = '';
-
+				private $nomehost = 'localhost';
+				private $nomeuser ='annisPierpaolo';
+				private $password = 'monterosa1';
+                                private $name='annisPierpaolo';
 				//controllo sulle connessioni attive
 				private $attiva=false;
 
 				//nome del database
-				private $nomedb= 'dbvivaio';
+				private $nomedb= 'amm14_annisPierpaolo';
 				
 
 //funzione per la connessione a MySQL
@@ -17,7 +17,8 @@ public function connetti()
 {
   if(!$this -> attiva) // '!' � la negazione
    {
-        if($connessione = mysql_connect ($this->nomehost, $this->nomeuser, $this->password) or die (mysql_error()))//funzione per connettersi a mysql
+        if($connessione = mysql_connect ($this->nomehost, $this->nomeuser, $this->password) or die (mysql_error()))
+//funzione per connettersi a mysql
      {
         //sezione del database
         $selezione = mysql_select_db($this->nomedb,$connessione) or die (mysql_error()); // ci da un ID, e selezioniamo il database a cui cogliamo operare

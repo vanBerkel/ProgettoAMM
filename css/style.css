@@ -1,12 +1,14 @@
 
 body{
-	background:CORNSILK;
-	color:black;
+    background:CORNSILK;
+    color:black;
+    width:90%;
+    margin: 0px auto;
 }
 #container{
-
-	width:1200px;
-	
+    display : inline-block;
+    width:100%;
+    margin: 0px auto;
 
 }
 
@@ -20,13 +22,10 @@ body{
 }
 
 
-#header h2 {
-	float:right;
-	color:blue;
-}
+
 #header{
 	
-	height:150px;
+	height:30%;
 
 
 }
@@ -38,9 +37,16 @@ body{
 }
 
 
+#main{
+    float:left;
+    width:75%;
+}
 
 
-
+#aside{
+    float:left;
+    width:25%;
+}
 
 
 
@@ -79,7 +85,7 @@ font-family: Monotype Corsiva;
 
 .Specie label{
  margin:70px;
- font-size:20px;
+        font-size:20px;
 	color:black;
 	
 	text-transform: uppercase;
@@ -101,14 +107,6 @@ label {
 
 
 
-#main{
-	
-	float:left;
-
-	width:800px;
-
-
-}
 
 table{
 	border:2px;
@@ -133,7 +131,7 @@ a{
 }
 
 #nav li a {
-	display: block;
+	//display: block;
 	padding: 0 30px 0 30px;
 
 
@@ -142,16 +140,10 @@ a{
 
 
 
-#aside{
-	
-	float:left;
-	width:180px;
 
-
-}
 #aside form{
-	margin: 20px;
-	margin-bottom:40px;
+	//margin: 20px;
+	//margin-bottom:40px;
 	
 
 
@@ -164,7 +156,7 @@ a{
 }
 
 #aside fieldset {
-	width:200px;
+	//width:200px;
 	
 
 
@@ -178,7 +170,7 @@ a{
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#9dce2c', endColorstr='#8cb82b');
 	background-color:#9dce2c;
 	border:3px solid #83c41a;
-	display:inline-block;
+	//display:inline-block;
 	color:#ffffff;
 	font-family:Verdana;
 	font-size:16px;
@@ -186,8 +178,10 @@ a{
 	padding:12px 50px;
 	text-decoration:none;
 	text-shadow:14px 4px 0px #689324;
+        
 }.menu:hover {
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #8cb82b), color-stop(1, #9dce2c) );
+	cursor: pointer;
+        background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #8cb82b), color-stop(1, #9dce2c) );
 	background:-moz-linear-gradient( center top, #8cb82b 5%, #9dce2c 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#8cb82b', endColorstr='#9dce2c');
 	background-color:#8cb82b;
@@ -225,6 +219,13 @@ input[type="submit"]:hover {
 	background-color:#d8d9cc;
 }
 
+input[name="logout"]{
+   
+    
+    
+}
+
+
 fieldset{
 	margin:20px;
 	border-color:green;
@@ -234,11 +235,7 @@ fieldset{
 
 }
 
-table {
-	
-	
 
-}
 tr{
 	border: 1px solid
 
@@ -283,7 +280,7 @@ margin-left: 40px;
 
 
 ul li a.extend {
-	display: block;
+	//display: block;
 	padding: 0 30px 0 30px;
 
 	text-decoration: none;

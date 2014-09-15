@@ -7,11 +7,28 @@ body{
     color:black;
     width:90%;
     margin: 0px auto;
+
+
 }
 #container{
     display : inline-block;
     width:100%;
     margin: 0px auto;
+
+}
+#sub{
+border-bottom:2px solid green;
+width:80%;
+position:absolute;
+left:15%;
+bottom:8%;
+}
+
+#sub2{
+border-right:2px solid green;
+position:absolute;
+top:0px;
+
 
 }
 
@@ -25,15 +42,20 @@ body{
        left:580px;
        width:280px;
 }
-
+#angolo img{
+    float:left;
+    position:absolute;
+    bottom:0%;
+    width:7%;
+}
 #header{
 	height:122px;
   }
 
-  h1{
-      font-family:Broadway;
-       color: green;
-     }
+ h1{
+    font-family:Broadway;
+    color: green;
+ }
 
    h2{font-family: Brush Script MT;
        color:green;
@@ -47,22 +69,24 @@ body{
          border-bottom:2px solid green;
          height:50px;
   }
-    p{
+p{
         font-family: Arial;
         font-weight: bold;
         font-style: Italic;
-        color: green
+        color: green;
+size:8%;
 }
 
 #main{
     float:left;
     width:75%;
+
 }
 
 #aside{
    float:right;
    width:25%;
-   border-left:2px solid green;
+   
  }
 
 

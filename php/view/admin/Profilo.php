@@ -3,27 +3,27 @@
 <fieldset>
               
 <form method="post" action="index.php">
-    Piante
-    <fieldset>
-        
+   
+    <label>Piante</label>
         <input type="submit" name="admin" value="Nuova" /> 
         <input type="hidden" name="pianta" value="NULL">
-    </fieldset>
+    
 </form>
  <form method="post" action="index.php">   
-    Giardiniere
-    <fieldset> 
+     
+     <label>Giardiniere</label>
         <input type="hidden" name="giard" value="NULL">
         <input type="submit" name="admin" value="Aggiungi" /> 
-    </fieldset>
+    
 
 </form>
-    Specie
+    
 <form method="post" action="index.php">
-    <fieldset> 
+     
+    <label>Specie</label>
         <input type="hidden" name="specie" value="NULL">
         <input type="submit" name="admin" value="Nuova" /> 
-    </fieldset>
+   
 </form>    
 
 </fieldset>

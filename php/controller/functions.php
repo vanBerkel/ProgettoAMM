@@ -735,7 +735,7 @@ function AdminAggiungiPiante($idPianta,$quant){
 
 function ClienteAcquisti($idPersonale){
     global $db;
-    $q ="SELECT * FROM acquisto, pianta WHERE cliente_fk=$idPersonale AND pianta_fk=IdPianta";
+    $q ="SELECT DISTINCT * FROM acquisto, pianta WHERE cliente_fk=$idPersonale AND pianta_fk=IdPianta";
     $res = $db->query($q);
     
         $piante[mysql_num_rows($res)]= new Pianta();
@@ -779,7 +779,7 @@ function ClienteGiardiniere($idPersonale){
     $mansione="giardiniere";
     $b = date('Y-m-d');
     
-    $q ="SELECT * 
+    $q ="SELECT DISTINCT * 
 FROM giorno, personale
 WHERE cliente_fk='$idPersonale'
 AND DAY >  '$b'

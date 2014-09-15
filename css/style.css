@@ -1,6 +1,9 @@
-
+﻿fieldset{
+      margin:50px;
+      border-color:transparent; 
+}
 body{
-    background:CORNSILK;
+    background: url("../images/sfondo1.jpg");
     color:black;
     width:90%;
     margin: 0px auto;
@@ -13,41 +16,54 @@ body{
 }
 
 #header h1{
-
 	padding-left:100px;
 	font-size:50px;
-	
-
-
 }
-
-
+#logo img{
+       position:absolute;
+       top:0px;
+       left:580px;
+       width:280px;
+}
 
 #header{
-	
-	height:30%;
+	height:122px;
+  }
 
+  h1{
+      font-family:Broadway;
+       color: green;
+     }
 
+   h2{font-family: Brush Script MT;
+       color:green;
+       position:absolute;
+       top:75px; left:400px;
+       font-size:25px;
 }
+
 #nav{
-	border-top:2px solid green;
-	border-bottom:2px solid green;
-	height:50px;
-
+         border-top:2px solid green;
+         border-bottom:2px solid green;
+         height:50px;
+  }
+    p{
+        font-family: Arial;
+        font-weight: bold;
+        font-style: Italic;
+        color: green
 }
-
 
 #main{
     float:left;
     width:75%;
 }
 
-
 #aside{
-    float:left;
-    width:25%;
-}
-
+   float:right;
+   width:25%;
+   border-left:2px solid green;
+ }
 
 
 /**classe dell'immagine delle piante**/
@@ -67,8 +83,6 @@ body{
 	width:100px;
 }
 
-
-
 .Specie  h1{
 	padding-left:40px;
 	font-size:46px;
@@ -84,39 +98,34 @@ font-family: Monotype Corsiva;
 }
 
 .Specie label{
- margin:70px;
-        font-size:20px;
+                margin:70px;
+                font-size:20px;
 	color:black;
-	
 	text-transform: uppercase;
-
-
 }
 
 
 *select{
 	width:50px;
-
 	border:2px solid #4dff12
 
 }
 
 label {
-	color:blue;
+	color:green;
+                font-family: Arial Rounded MT Bold;
+                
 }
-
-
-
 
 table{
 	border:2px;
-	border-color:white;
+	border-color:#f2ead7;
 
 }
 
 a{
-	color:black ;
-	
+	font-family:Berlin Sans FB;
+                color:green;
 	text-decoration: none;
 	font-size: 14px;
 	text-transform: uppercase;
@@ -126,40 +135,31 @@ a{
 
 #nav li {
 	float: left;
-        
-	
 }
 
 #nav li a {
 	//display: block;
 	padding: 0 30px 0 30px;
-
-
-
+                font-family: Arial;
+                color: green;
+                 font-weight:bold;
+                 
 }
-
-
-
 
 #aside form{
 	//margin: 20px;
 	//margin-bottom:40px;
 	
-
-
-
 }
 #aside input[type="submit"]{
 	
-
-
 }
 
 #aside fieldset {
-	//width:200px;
-	
+	width:200px;
 
 
+	 
 }
 .menu{
 	-moz-box-shadow:inset -2px 0px 14px -5px #c1ed9c;
@@ -172,7 +172,7 @@ a{
 	border:3px solid #83c41a;
 	//display:inline-block;
 	color:#ffffff;
-	font-family:Verdana;
+	font-family:Arial;
 	font-size:16px;
 	font-weight:bold;
 	padding:12px 50px;
@@ -192,48 +192,28 @@ a{
 
 
 input[type="submit"]{
-	-moz-box-shadow:inset 1px 0px 15px 6px #32d132;
-	-webkit-box-shadow:inset 1px 0px 15px 6px #32d132;
-	box-shadow:inset 1px 0px 15px 6px #32d132;
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #4dff12), color-stop(1, #d8d9cc) );
-	background:-moz-linear-gradient( center top, #4dff12 5%, #d8d9cc 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4dff12', endColorstr='#d8d9cc');
-	background-color:#4dff12;
-	-moz-border-radius:29px;
-	-webkit-border-radius:29px;
-	border-radius:29px;
-	display:inline-block;
-	color:#120512;
-	font-family:Verdana;
-	font-size:10px;
-	font-weight:bold;
-	padding:8px 16px;
-	text-decoration:none;
-	text-shadow:1px 1px 0px #f0f5f2;
+  -webkit-border-radius: 12;
+  -moz-border-radius: 12;
+  border-radius: 12px;
+  font-family: Arial;
+  font-weight: Bold;
+  color: #37854c;
+  font-size: 13px;
+  background: #f2ead7;
+  padding: 5px 6px 5px 6px;
+  border: solid #2d8c1f 1px;
+  text-decoration: none;
 }
 
 input[type="submit"]:hover {
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #d8d9cc), color-stop(1, #4dff12) );
-	background:-moz-linear-gradient( center top, #d8d9cc 5%, #4dff12 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d8d9cc', endColorstr='#4dff12');
-	background-color:#d8d9cc;
+       text-decoration: none;
+	
 }
 
 input[name="logout"]{
-   
-    
-    
+ 
 }
 
-
-fieldset{
-	margin:20px;
-	border-color:green;
-	
-
-
-
-}
 
 
 tr{
@@ -266,23 +246,16 @@ ul {
 ul li ul {
 	list-style: none;
 	position: absolute;
-
-	
 	display: none;
-
 }
-
-
 
 ol {
 margin-left: 40px;
 }
 
-
 ul li a.extend {
 	//display: block;
 	padding: 0 30px 0 30px;
-
 	text-decoration: none;
 	font-size: 12px;
 	text-transform: uppercase;
@@ -290,7 +263,7 @@ ul li a.extend {
 }
 
 li fieldset {
- background:ALICEBLUE;
+ background:#f2ead7;
 
 }
 

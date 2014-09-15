@@ -7,7 +7,7 @@
             for($count=0;$count<count($giardiniere)-1;$count++){
                ?>
             <option value="<?php echo $giardiniere[$count]->getUsername(); ?>">
-              <?php echo $giardiniere[$count]->getUsername(); ?>
+              <?php echo $giardiniere[$count]->getNome() . " " . $giardiniere[$count]->getCognome(); ?> 
             </option>
               <?php
             }?>

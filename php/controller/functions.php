@@ -234,6 +234,39 @@ function FormSpecie($val){
     ElencoPianteTipo(mysql_num_rows($res),$val);
     
 }
+
+function ElencoPersonale($mansione){
+    global $db; //all'esterno delle funzioni non vidibile all'esterno e ilcontrario, quindi con global � visibile anche all'interno e all'esterno delle funzioni, altrimenti non � visibile db nelle funzioni
+    $q = "SELECT * FROM personale WHERE Mansione='$mansione'";
+    $res = $db->query($q);
+    $i=0;
+    $personale[mysql_num_rows($res)]=new Personale();
+    
+    while($row = mysql_fetch_array($res)){
+        $personale[$i] = new Personale();
+        $personale[$i]->setUsername($row['Username']);
+        
+        $personale[$i]->setEmail($row['Email']);
+        $personale[$i]->setIndirizzo($row['Indirizzo']);
+        $personale[$i]->setCap($row['Cap']);
+        $personale[$i]->setNome($row['Nome']);
+        $personale[$i]->setCognome($row['Cognome']);
+        $personale[$i]->setCitta($row['Citta']);
+        $personale[$i]->setTelefono($row['Telefono']);
+        $i++;
+    }
+    if ($mansione=="giardiniere"){
+        $mansione="giardinieri";
+    }else{
+        $mansione="clienti";
+    }
+    include("php/view/other/ElencoPersonale.php");
+    
+    
+}
+
+
+
 /* tipo =0 Seleziona tutte le piante
  * tipo>0 selezione solo le piante di una specie 
  * tipo <0 cerca per lettera
@@ -399,14 +432,14 @@ function FormLavoro($giorno){
             // echo $row1['Username'];
              $giardiniere[$i] = new Personale();
              $giardiniere[$i]->setUsername($row['Username']);
-
-    //??mancano dati
+             $giardiniere[$i]->setNome($row['Nome']);
+             $giardiniere[$i]->setCognome($row['Cognome']);
              $i++;
         }
-        include 'php/view/ListaGiardinieri.php';
+        include 'php/view/other/ListaGiardinieri.php';
     }
     else 
-        echo "non ci sono giardinieri disponibili per il ".$giorno;
+        echo "<p>non ci sono giardinieri disponibili per il " . $giorno . "</p>";
  }
  
  function GestionePrenotazione($giardiniere, $giorno){
@@ -538,7 +571,6 @@ function AggiungiSpecie($nome,$descrizione){
                 VALUES ('$nome','$descrizione')";
     $db->query($q);
 }
-
 
 //cerca specie per nome è restituisce idSpecie se viene trovato altrimenti NULL
 function CercaSpecie($nome){
@@ -847,29 +879,37 @@ function VerificaNavPersonale(){
 
 
 function VerificaAsidePersonale(){
+    SceltaSpecie();
     if(isset($_SESSION['logged'])){
         $personale=$_SESSION['logged'];
         $mansione=ReturnMansione($personale);
-        if($mansione!="cliente"){
-            
-        }else{
-            SceltaSpecie();
+        if($mansione=="cliente"){
             AggiornaGiorno();
         }
     }else{
-        //se non siamo loggati e non siamo nella pagina di registrazione
-        //??da aggiungere questa clausola
-        SceltaSpecie();
         AggiornaGiorno();
     }
+ }
+ 
+ /*
+  * $giorno = -1 semplice PageGiardinieri
+  * altrimenti in piu la scelta del giardiniere
+  */
+ function PageGiardiniere($giorno){
+    include 'php/view/other/PageGiardinieri.php';
+    if($giorno!="-1"){
+            FormLavoro($giorno);
+    }
+  
+     
+ }
+
+ function Homepage(){
+    include 'php/view/other/Homepage.php';
     
  
-
-}
- 
- 
-
-
+     
+ }
 
 
 

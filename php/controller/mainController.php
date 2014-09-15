@@ -24,6 +24,22 @@ if (isset($_GET['elenco'])){
     $elenco=$_GET['elenco'];
 } 
 
+switch ($menu){
+    case "piante":
+            ElencoPianteTipo(0,0);
+        break;
+    case "giard":
+            PageGiardiniere("-1");
+            if (($mansione!="giardiniere") &&($mansione!="amministratore")){
+                echo "<p>prenota un appuntamento qui affianco -> </p>";
+            }
+        break;
+    case "home":
+            Homepage();
+        break;
+}
+
+
 switch ($mansione){
     case "amministratore":
         $inputAdmin="";
@@ -78,7 +94,7 @@ switch ($mansione){
                                             AdminProfilo();
                                     }else{
                                         echo "<p> !!!la pianta non è stata aggiunta!!! nome pianta già esistente </p>";
-                                        FormModificaPianta($_POST['id']);
+                                        FormAggiungiPianta();
                                     }
                             }
                         break;
@@ -131,6 +147,18 @@ switch ($mansione){
                         if ((($menu=="")&&($elenco=="")
                                 &&($job==""))||($menu=="profilo")){
                             AdminProfilo();
+                        }
+                        if ((($menu=="clienti")&&($elenco=="")
+                                &&($job==""))){
+                            $mansione="cliente";
+                            
+                            ElencoPersonale($mansione);
+                        }
+                        if ((($menu=="giard")&&($elenco=="")
+                                &&($job==""))){
+                            $mansione="giardiniere";
+                            
+                            ElencoPersonale($mansione);
                         }
                     break;
                 }
@@ -200,7 +228,9 @@ switch ($mansione){
                     break;
             }
         }
-        
+        if(($job=="")&&($elenco=="")&&(($menu==""))){
+            Homepage();
+        }
         break;
 
 }
@@ -208,7 +238,8 @@ switch ($mansione){
 switch ($job){
     case "Conferma":
         if (isset($_POST['giorno'])){
-            FormLavoro($_POST['giorno']);  
+            PageGiardiniere($_POST['giorno']);
+            
         }else{
             if (isset($_GET['specie'])){
                 formSpecie ($_GET['specie']); 
@@ -238,15 +269,7 @@ if ($elenco!=""){
     }
 }
 
-switch ($menu){
-    case "piante":
-            ElencoPianteTipo(0,0);
-        break;
-  
-    default:
-        
-        break;
-}
+
 
 
 ?>

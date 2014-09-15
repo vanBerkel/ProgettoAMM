@@ -3,8 +3,8 @@ class DBclass{
                //parametri per la connessione al database
     //if ($_SERVER['HTTP_HOST']=="localhost"){
         private $nomehost = 'localhost';
-        private $nomeuser ='root';
-        private $password = '';
+        private $nomeuser ='annisPierpaolo';
+        private $password = 'airone736';
     
   //  }else{
      /*   private $nomehost = 'localhost';

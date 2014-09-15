@@ -1,8 +1,7 @@
 <div id="GestioneDati">
 <h1> Gestione </h1>
 <fieldset>
-           
-	   
+              
 <form method="post" action="index.php">
     Piante
     <fieldset>

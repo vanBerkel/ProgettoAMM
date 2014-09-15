@@ -129,7 +129,7 @@ switch ($mansione){
                         break;
                     default:
                         if ((($menu=="")&&($elenco=="")
-                                &&($aside==""))||($menu=="profilo")){
+                                &&($job==""))||($menu=="profilo")){
                             AdminProfilo();
                         }
                     break;

@@ -661,7 +661,7 @@ function ModificaPianta($idPianta){
 
 function AdminProfilo(){
     PianteFinite();
- include 'php/view/admin/Profilo.php';
+    include 'php/view/admin/Profilo.php';
     /*    AggiungiPiante();
     ModificaPiante();
     AggiungiGiardiniere();

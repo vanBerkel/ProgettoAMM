@@ -10,6 +10,6 @@ include("dbclass_1.php");
 include("controller/functions.php");
 include("controller/generalControl.php");
 include("view/master.php");
-echo "hia";
+
 
 

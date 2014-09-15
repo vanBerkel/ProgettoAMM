@@ -372,10 +372,10 @@ function Login($username,$passw){
 }
 
 function AggiornaGiorno(){
-    $b = date('Y-m-d');
+    $t = time();
+    $b = date('Y-m-d',$t);
     $g=86400;
     $w=86400*7;
-    $t = time();
     $b = date('Y-m-d',$t+$g);
     $max= date('Y-m-d',$t+$w);
     $pos = date('Y-m-d; G i s',$t);

@@ -14,7 +14,7 @@
 </head>
 <body>
 <div id="container">
-ciao
+
 <?php 
     include("header.php");
     include("nav.php");

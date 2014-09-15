@@ -6,5 +6,6 @@
 /*?>
 <a href="spano.sc.unica.it/phpmyadmin">ciao </a>
 <?php*/
+
 include("php/index.php");
 

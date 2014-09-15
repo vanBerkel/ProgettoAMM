@@ -1,4 +1,5 @@
 <div id="ElencoGiardinieri">
+    <fieldset>
     <h2>Elenco <?php echo $mansione; ?></h2>
     <table>
     <tr><th>Username</th><th>Nome</th><th>Cognome</th><th>Città</th>
@@ -14,4 +15,5 @@
             </tr>
     <?php } ?>
     </table>
+    </fieldset>
 </div>

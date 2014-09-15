@@ -1,5 +1,6 @@
 
 <div id="ElencoPianteLettera">
+    <fieldset>
     <a class="elencopiante" href="index.php?elenco=A">A</a>
     <a class="elencopiante" href="index.php?elenco=B">B</a>
     <a class="elencopiante" href="index.php?elenco=C">C</a>
@@ -26,6 +27,8 @@
 	<a class="elencopiante" href="index.php?elenco=L">Y</a>
 	<a class="elencopiante" href="index.php?elenco=L">Z</a>
     <a class="elencopiante" href="index.php?elenco=0">tutte</a>
+</fieldset>
+    
 </div>
 
 

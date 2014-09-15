@@ -20,7 +20,9 @@
     include("main.php");
     include("aside.php");
 ?>
+    
 <div id="sub">
+    Copyright © 2014 - Viale Verde. Tutti i diritti riservati. Webdesign Pier Paolo Annis
 </div>
 </div>
 

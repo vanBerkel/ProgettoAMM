@@ -10,7 +10,6 @@
     <meta name="keywords" content="Annis Pier Paolo" />
     <meta name="description" content="Una pagina per gestire le funzioni di un vivaio" />
 
-  <!-- far in modo tale da cambiare il titolodella pagina<title><?= $vd->getTitolo() ?></title>  -->
     <title>Vivaio</title> 
 </head>
 <body>

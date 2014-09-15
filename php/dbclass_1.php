@@ -1,10 +1,9 @@
 <?php
-class DBclass{
+class DBclass_1{
                //parametri per la connessione al database
-				private $nomehost = 'localhost';
-				private $nomeuser ='annisPierpaolo';
-				private $password = 'monterosa1';
-                                private $name='annisPierpaolo';
+                    private $nomehost = 'localhost';
+                    private $nomeuser ='root';
+                    private $password = '';
 				//controllo sulle connessioni attive
 				private $attiva=false;
 
@@ -45,7 +44,7 @@ if(isset($this->attiva))
 
 <?php //istanza dell'oggetto fuori dalla classe
 //istanza sull'oggetto della classe
-$db = new DBclass();
+$db = new DBclass_1();
 
 //connessione al database
 $db ->connetti(); //si invoca il metodo connetti su qeusto oggetto

@@ -1,17 +1,10 @@
 <?php
 class DBclass{
                //parametri per la connessione al database
-    //if ($_SERVER['HTTP_HOST']=="localhost"){
+  
         private $nomehost = 'localhost';
         private $nomeuser ='annisPierpaolo';
         private $password = 'airone736';
-    
-  //  }else{
-     /*   private $nomehost = 'localhost';
-        private $nomeuser ='annisPierpaolo';
-        private $password = 'monterosa1';*/
-        
-    //}
                                 private $name='';
 				//controllo sulle connessioni attive
 				private $attiva=false;

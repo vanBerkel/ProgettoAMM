@@ -15,17 +15,12 @@
 </head>
 <body>
 <div id="container">
+ciao
 <?php 
-
-//require '$nav';
-
-
-
-include("header.php");
-include("nav.php");
-include("main.php");
-include("aside.php");
-
+    include("header.php");
+    include("nav.php");
+    include("main.php");
+    include("aside.php");
 ?>
 <div id="sub">
 </div>

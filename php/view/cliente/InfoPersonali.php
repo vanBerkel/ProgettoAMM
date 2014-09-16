@@ -1,8 +1,11 @@
+<div id="InfoPersonali">
+<fieldset>
 <a class="InfoPersonali" href="index.php?personale=info">
-    <h1>I miei dati</h1>
-    <table name="InfoPersonali">
+    <h1>I miei dati</h1></a>
+    
    
-        <tr><td><?php echo $personale->getNome(); ?></td>
-        <td> <?php echo $personale->getCognome();?></td></tr>
-     </table>
-</a>
+    <p><?php echo $personale->getNome() . " " . $personale->getCognome(); ?></p>
+    
+
+</fieldset>
+</div>

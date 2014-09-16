@@ -8,7 +8,7 @@
  */
 class Pianta{
    
-    private $stagioneFioritura;
+   
     private $disponibilita;
     private $prezzo;
     private $id;
@@ -70,12 +70,5 @@ class Pianta{
         return true;
     }
    
-    public function getStagioneFioritura() {
-        return $this->stagioneFioritura;
-    }
-       
-    public function setStagioneFioritura($stagioneFioritura) {
-        $this->stagioneFioritura = $stagioneFioritura;
-        return true;
-    }    
+ 
 }

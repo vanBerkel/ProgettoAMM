@@ -1,4 +1,5 @@
-<div id="ClienteGiardiniere">
+
+    <div id="ClienteGiardiniere">
     <h1>Io e il Giardiniere</h1>
     <?php if ((count($personale)-1)>0){ ?>
     <table name="ClienteGiardiniere">
@@ -20,3 +21,4 @@
     <p>Nessuna prenotazione</p>
     <?php } ?>
 </div>
+    

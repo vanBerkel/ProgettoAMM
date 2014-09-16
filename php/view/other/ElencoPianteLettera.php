@@ -1,5 +1,6 @@
 
 <div id="ElencoPianteLettera">
+    <h2> Cerca piante per iniziale </h2>
     <fieldset>
     <a class="elencopiante" href="index.php?elenco=A">A</a>
     <a class="elencopiante" href="index.php?elenco=B">B</a>

@@ -1,7 +1,7 @@
 <ul> 
     <li> 
         <fieldset text="Collegati" >
-            <p> Collegati per accedere al servizio </p>
+            <p> Accedi al servizio </p>
             <form action="index.php" method="post">
                 <label>Username</label>
                 <input type="text" name="username" />

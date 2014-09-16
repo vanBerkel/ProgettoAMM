@@ -1,3 +1,4 @@
+<div id="ListaSpecie">
 <form method="get" action="index.php">
 <fieldset>
     <label> Cerca Pianta per Specie</label><br>
@@ -14,3 +15,4 @@
     <input type="submit" name="job" value="Conferma"/>
 </fieldset>
 </form>
+    </div>

@@ -1,5 +1,6 @@
-<li><a class="menu" href="index.php?profilo=true"> Login </a> 
-    <?php AggiornaListaNav(); ?>
+<li><a class="profilo"> Login 
+    <?php AggiornaListaNav(); ?></a>
+        
 </li>
 
 

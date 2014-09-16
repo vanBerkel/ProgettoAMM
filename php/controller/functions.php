@@ -1,14 +1,20 @@
 <?php
-include_once ("php/model/Pianta.php");
-include_once ("php/model/Specie.php");
-include_once ("php/model/Personale.php");
+/* sono presenti tutte le funzioni principali */
 
+include_once ("php/model/Pianta.php"); //classe pianta
+include_once ("php/model/Specie.php"); //classe specie
+include_once ("php/model/Personale.php"); //classe personale
 
+/*
+ * Aggiorna la lista del menu di navigazione per un utente non logato
+ */
 function AggiornaListaNav(){
         include 'php/view/login/Accedi.php';
 }
 
-
+/*
+ * Modifica i Dati personali di un cliente o giardiniere 
+ */
 function Modifica_Profilo(){
     global $db;
     $user = $_SESSION['logged'];
@@ -30,9 +36,13 @@ function Modifica_Profilo(){
     echo "<h2>Modifica i miei dati personali </h2>";
     PagePersonale($personale,1);
     
-    
 }
-/*$tipo = 0 non modificabile
+
+/*
+ * PagePersonale apre la pagina dei dati personali del personale
+ * $personale perchè deve inserire i dati del personale nel form html
+ * $tipo determina che tipo di PAgePersonale sarà
+ * $tipo = 0 non modificabile
  * >0 modificabile
  * =2 aggiunta 
  * =3 registrazione
@@ -57,6 +67,11 @@ function PagePersonale($personale,$tipo){
         include 'php/view/other/PagePersonale.php';
     
 }
+
+/*
+ * Apre il div "miei dati personali" 
+ * Effettua una ricerca dell'utente che ha effettuato l'accesso
+ */
 function InfoPersonali(){
     global $db;
     $user = $_SESSION['logged'];
@@ -80,6 +95,10 @@ function InfoPersonali(){
     
 }
 
+
+/*
+ * Crea o Modifica un nuovo cliente o giardiniere
+ */
 function Aggiorna_Profilo(){
     global $db;
     if (isset ($_SESSION['logged'])){
@@ -115,7 +134,6 @@ if ($passw==$passw2){
                 $cliente="cliente";
                 //inserisce il nuovo utente nell'archivio
                 if ($logged!=""){  
-                  
                     $qq="SELECT Id FROM personale WHERE Username='$logged'";
                     $resout = $db->query($qq);
                     $resout = mysql_fetch_array($resout);
@@ -182,13 +200,14 @@ else{
     
     
 }
+
 /*visualizza una pianta
  * $val indice della pianta
  * ritorna un oggetto di tipo pianta
  */
 //visualizza una pianta
 function Pianta($val){
-        global $db; //all'esterno delle funzioni non vidibile all'esterno e ilcontrario, quindi con global � visibile anche all'interno e all'esterno delle funzioni, altrimenti non � visibile db nelle funzioni
+    global $db; 
     $q = "SELECT * FROM pianta where IdPianta = '$val'";
     $res = $db->query($q);
     $row = mysql_fetch_array($res);
@@ -200,10 +219,14 @@ function Pianta($val){
     $pianta->setImmagine($row['Immagine']);
     $pianta->setNome($row['Nome']);
     $pianta->setPrezzo($row['Prezzo']);
-    $pianta->setStagioneFioritura($row['StagioneFioritura']);
+    
     return $pianta;
 }
-//visualizza una pianta
+
+/*
+ * visualizza una pianta nella pagina
+ * in base al valore di $val=indice della pianta da visualizzare
+ */
 function FormVisualizza($val){
     $pianta = new Pianta();
     $pianta=Pianta($val);
@@ -211,14 +234,16 @@ function FormVisualizza($val){
     if(isset($_SESSION['logged'])){
         $mansione=  ReturnMansione($_SESSION['logged']);
     }
-    include("php/view/PiantaVis.php");
+    include("php/view/other/PiantaVis.php");
     
 }
 
-
-//visualizza la specie selezionata
+/*
+ * visualizza una lista di piante appartenenti a una specie
+ * in base al valore di $val=indice della specie
+ */
 function FormSpecie($val){
-    global $db; //all'esterno delle funzioni non vidibile all'esterno e ilcontrario, quindi con global � visibile anche all'interno e all'esterno delle funzioni, altrimenti non � visibile db nelle funzioni
+    global $db; 
     $q = "SELECT * FROM specie where idSpecie = '$val'";
     $res = $db->query($q);
     $row = mysql_fetch_array($res); 
@@ -230,22 +255,24 @@ function FormSpecie($val){
     $specie->setNome($row['Nome']);
     $specie->setCarEsposizione($row['CarEsposizione']);
 
-    include("php/view/SpecieVis.php");
+    include("php/view/other/SpecieVis.php");
     ElencoPianteTipo(mysql_num_rows($res),$val);
     
 }
 
+/*
+ * Visualizza un elenco di giardinieri o clienti 
+ * in base al valore $mansione
+ */
 function ElencoPersonale($mansione){
-    global $db; //all'esterno delle funzioni non vidibile all'esterno e ilcontrario, quindi con global � visibile anche all'interno e all'esterno delle funzioni, altrimenti non � visibile db nelle funzioni
+    global $db; 
     $q = "SELECT * FROM personale WHERE Mansione='$mansione'";
     $res = $db->query($q);
     $i=0;
     $personale[mysql_num_rows($res)]=new Personale();
-    
     while($row = mysql_fetch_array($res)){
         $personale[$i] = new Personale();
         $personale[$i]->setUsername($row['Username']);
-        
         $personale[$i]->setEmail($row['Email']);
         $personale[$i]->setIndirizzo($row['Indirizzo']);
         $personale[$i]->setCap($row['Cap']);
@@ -261,27 +288,33 @@ function ElencoPersonale($mansione){
         $mansione="clienti";
     }
     include("php/view/other/ElencoPersonale.php");
-    
-    
-}
+ }
 
 
 
-/* tipo =0 Seleziona tutte le piante
+/* 
+ * Visualizza un elenco di piante
+ * in base al valore di tipo e val
+ * tipo =0 Seleziona tutte le piante
  * tipo>0 selezione solo le piante di una specie 
  * tipo <0 cerca per lettera
- * val = idSPecie oppure lettera da cercare oppure 0 identifica che siamo in elenco di lettere
+ * val = idSPecie oppure 
+ *      = lettera da cercare 
+ *      = 0 identifica che siamo in elenco di lettere
  */
 function ElencoPianteTipo($tipo,$val){
     global $db;
-    $esiste=0;
-    echo "<label> Elenco delle piante </label>";
+    $esiste=0; 
     switch ($tipo){
         case 0 :
             $q = "SELECT * FROM pianta";
-            
+            if ($val=='0'){
                 include ("php/view/other/ElencoPianteLettera.php");
-            
+            }else
+            {
+                include ("php/view/other/Piante.php");
+ 
+            }
            break;
         case 1:
             $q = "SELECT * FROM pianta where IdSpecieFK = '$val'";
@@ -292,9 +325,7 @@ function ElencoPianteTipo($tipo,$val){
             include ("php/view/other/ElencoPianteLettera.php");
             break;
     }
-     
     $res = $db->query($q);
-
     $piante[mysql_num_rows($res)]= new Pianta();
     $i=0;
     while($row = mysql_fetch_array($res)){
@@ -305,8 +336,7 @@ function ElencoPianteTipo($tipo,$val){
         $piante[$i]->setImmagine($row['Immagine']);
         $piante[$i]->setNome($row['Nome']);
         $piante[$i]->setPrezzo($row['Prezzo']);
-        $piante[$i]->setStagioneFioritura($row['StagioneFioritura']);
-       
+        
         $i++;
     }
     $mansione="";
@@ -316,7 +346,9 @@ function ElencoPianteTipo($tipo,$val){
     include ("php/view/other/ElencoPiante.php");
 }
 
-/* return 0 personale aggiunto
+/* Tenta di aggiungere uno nuovo personale
+ * in base al valore di $mansione aggiunge un giardiniere o cliente
+ * return 0 personale aggiunto
  * 1    nome utente gia esistente
  * 2    password non combaccia
  * 3    non compilati tutti i campi obligatori
@@ -361,29 +393,20 @@ function AggiungiPersonale($mansione){
 }
 
 
-
-    
-
-
-
-
-
-
-
-/*!! se si cerca di salvare viene mostrato un messaggio di errore ma se si aggiorna
- * la pagina si torna in index.php
- * cercare di risolvere questo problema
- */
-/*???
- * si ritorna sempre alla home 
+/*
+ * L'utente si disconnette 
  */
 function Logout(){
     unset($_SESSION['logged']); // toglie il collegamento
-    header('Location: index.php');//???cercare una soluzione alternativa il sito riprende dalla home
+    header('Location: index.php');
     
 }
-/*???
- * si ritorna sempre alla home al posto di rimanere nella stessa pagina 
+
+
+/*
+ * Effettua il login
+ * in base al valore di $username e passw 
+ * se i valori di username e passw sono corretti 
  */
 function Login($username,$passw){
     global $db;
@@ -394,7 +417,7 @@ function Login($username,$passw){
     if(mysql_num_rows($res) == 1) {
         $row = mysql_fetch_array($res);
         $_SESSION['logged'] = $row['Username']; //è stata trovato username e password corrispondenti
-        header('Location: index.php');//???cercare una soluzione alternativa il sito riprende dalla home
+        header('Location: index.php');
     }
     else {?>
         <script type="text/javascript">
@@ -404,6 +427,10 @@ function Login($username,$passw){
     }
 }
 
+
+/* 
+ * Aggiorna il giorno e visualizza il div "RicercaGiorno"
+ */
 function AggiornaGiorno(){
     $t = time();
     $b = date('Y-m-d',$t);
@@ -412,15 +439,20 @@ function AggiornaGiorno(){
     $b = date('Y-m-d',$t+$g);
     $max= date('Y-m-d',$t+$w);
     $pos = date('Y-m-d; G i s',$t);
-    include 'php/view/RicercaGiornoForm.php';
+    include 'php/view/other/RicercaGiornoForm.php';
 }
 
 
 
 
-//contralla quali giardinieri sono liberi il giorno
+/*
+ * Effettua un controllo sui giardinieri 
+ * che sono liberi in un determinato giorno
+ * e li visualizza sullo schermo
+ * $giorno = contiene il giorno su cui si deve basare la ricerca
+ */
 function FormLavoro($giorno){
-    global $db; //all'esterno delle funzioni non vidibile all'esterno e ilcontrario, quindi con global � visibile anche all'interno e all'esterno delle funzioni, altrimenti non � visibile db nelle funzioni
+    global $db; 
     $mansione = "giardiniere";
     $q = "SELECT * FROM personale WHERE Mansione='$mansione' AND 
             Id NOT IN (SELECT giardiniere_fk FROM giorno WHERE DAY =  '$giorno')";
@@ -429,7 +461,6 @@ function FormLavoro($giorno){
         $giardiniere[mysql_num_rows($res)]= new Personale();
         $i=0;
         while($row = mysql_fetch_array($res)){
-            // echo $row1['Username'];
              $giardiniere[$i] = new Personale();
              $giardiniere[$i]->setUsername($row['Username']);
              $giardiniere[$i]->setNome($row['Nome']);
@@ -442,7 +473,11 @@ function FormLavoro($giorno){
         echo "<p>non ci sono giardinieri disponibili per il " . $giorno . "</p>";
  }
  
- function GestionePrenotazione($giardiniere, $giorno){
+/*
+ * Gestisce la prenotazione di un giardiniere ($giardiniere)
+ * in un determinato giorno ($giorno) da parte di un cliente
+ */
+function GestionePrenotazione($giardiniere, $giorno){
     global $db;
     if ($giardiniere=="null"){
         ?>
@@ -478,14 +513,18 @@ function FormLavoro($giorno){
 	</script>
         <?php
     }
-    }
+}
     
-     
- }
- Function SceltaSpecie(){       
+}
+
+/*
+ * visualizza la select di selezione di una specie
+ * cerca tutte le specie presenti nel database
+ */
+Function SceltaSpecie(){       
     global $db;
-    $q = "SELECT * FROM specie"; // estrae tuttii dati dalla tabella post � la tabella
-    $res = $db->query($q); //invochiamo  il meotdo query su db
+    $q = "SELECT * FROM specie"; // estrae tuttii dati dalla tabella post è la tabella
+    $res = $db->query($q); //invochiamo  il metodo query su db
     $specie[mysql_num_rows($res)] = new Specie();
     $i=0;
     while($row = mysql_fetch_array($res)){ //ciclo per estrarre i dati
@@ -494,10 +533,13 @@ function FormLavoro($giorno){
         $specie[$i]->setNome($row['Nome']);
         $i++;
     }
-    include 'php/view/ListaSpecie.php';
+    include 'php/view/other/ListaSpecie.php';
  }        
 
- //aggiunge al carrello un nuovo articolo
+ /*
+  * Acquista una nuova pianta
+  * $prod = contiene l'id della pianta da acquistare
+  */
 function FormCarrello($prod){
     global $db;
     $cliente = $_SESSION['logged'];
@@ -530,6 +572,9 @@ function FormCarrello($prod){
     <?php		
 }
  
+/* restituisce la mansione di un determinato personale
+ * $personale = contiene l'username su cui si basa la ricerca
+ */
 function ReturnMansione($personale){
     global $db;
     $q ="SELECT * FROM personale WHERE Username='$personale'";
@@ -539,6 +584,10 @@ function ReturnMansione($personale){
     return $mansione;
 }
 
+/*
+ * restituisce l'id di un determinato personale
+ *  $personale = contiene l'username su cui si basa la ricerca
+ */
 function ReturnId($personale){
     global $db;
     $q ="SELECT * FROM personale WHERE Username='$personale'";
@@ -547,6 +596,11 @@ function ReturnId($personale){
     $Idpersonale = $row['Id'];
     return $Idpersonale;
 }
+
+
+/*
+ * Aggiunge una pianta nel database
+ */
 function AggiungiPianta($nome,$descrizione,$disponibilita,$specie, $immagine,$prezzo){
     global $db;
     $q = "INSERT INTO pianta (`Nome`,`Descrizione`, `Disponibilita`,`IdSpecieFK`,
@@ -555,7 +609,12 @@ function AggiungiPianta($nome,$descrizione,$disponibilita,$specie, $immagine,$pr
             , '$prezzo')";
     $db->query($q);
 }
-//cerca pianta per nome è restituisce idPianta se viene trovato altrimenti NULL
+
+
+/*
+ * Ricerca una pianta in base al $nome
+ * restituisce idPianta se viene trovato altrimenti NULL
+ */
 function CercaPianta($nome){
     global $db;
     $q ="SELECT * FROM pianta WHERE Nome='$nome'";
@@ -564,7 +623,10 @@ function CercaPianta($nome){
     $Idpianta = $row['IdPianta'];
     return $Idpianta;   
 }
-//aggiunge una nuova specie
+
+/*
+ * Aggiunge una pianta nel database
+ */
 function AggiungiSpecie($nome,$descrizione){
     global $db;
     $q = "INSERT INTO specie(`Nome`,`Descrizione`) 
@@ -572,7 +634,10 @@ function AggiungiSpecie($nome,$descrizione){
     $db->query($q);
 }
 
-//cerca specie per nome è restituisce idSpecie se viene trovato altrimenti NULL
+/*
+ * Ricerca una specie in base al $nome
+ * restituisce idSpecie se viene trovato altrimenti NULL
+ */
 function CercaSpecie($nome){
     global $db;
     $q ="SELECT * FROM specie WHERE Nome='$nome'";
@@ -582,14 +647,20 @@ function CercaSpecie($nome){
     return $Idspecie;   
 }
 
+/*
+ * visualizza la form di aggiunta di una specie
+ */
 function FormAggiungiSpecie(){
     $specie = new Specie();
     $specie->setDescrizione("");
-  
     $specie->setNome("");
     include 'php/view/admin/PageSpecie.php';
 }
 
+/*
+ * visualizza la form di aggiunta di un personale
+ * $mansione specifica che tipo di utente dovrà essere aggiunto
+ */
 function FormAggiungiPersonale($mansione){
     $i=1;
     $personale = new Personale();
@@ -611,11 +682,12 @@ function FormAggiungiPersonale($mansione){
         $i=3;
     }
     PagePersonale($personale,$i);
-    
-
-   
 }
 
+/*
+ *visualizza form di modifica di una pianta
+ * idPianta = identifica ID della pianta da modificare
+ */
 function FormModificaPianta($idPianta){
     global $db;
     $pianta = new Pianta;
@@ -626,8 +698,6 @@ function FormModificaPianta($idPianta){
     $idSpecie = $row['IdSpecieFK'];
     $q ="SELECT * FROM specie WHERE IdSpecie NOT IN ($idSpecie)";
     $res = $db->query($q);
-    
-    
     $specie[mysql_num_rows($res)+1] = new Specie();
     $i =1;
     while ($row = mysql_fetch_array($res)){
@@ -647,20 +717,21 @@ function FormModificaPianta($idPianta){
     include 'php/view/admin/PagePianta.php';
 }
 
+/*
+ * visualizza la form di aggiunta di una pianta
+ */
 function FormAggiungiPianta(){
     global $db;
     $pianta = new Pianta();
     $pianta->setDescrizione("");
     $pianta->setDisponibilita(0);
-    
     $pianta->setImmagine("");
     $pianta->setNome("");
     $pianta->setPrezzo("");
-    $pianta->setStagioneFioritura("");
-    
+   
     $q ="SELECT * FROM specie";
     $res = $db->query($q);
-    
+
     $specie[mysql_num_rows($res)] = new Specie();
     $i =0;
     while ($row = mysql_fetch_array($res)){
@@ -674,6 +745,10 @@ function FormAggiungiPianta(){
     include 'php/view/admin/PagePianta.php';
 }
 
+/*
+ * Modifica i dati di una pianta nel database
+ * IDpianta = specifica Id della pianta da modificare 
+ */
 function ModificaPianta($idPianta){
    global $db;
    $nome = $_POST['nome'];
@@ -687,22 +762,24 @@ function ModificaPianta($idPianta){
           `Immagine`='$img', `Prezzo`='$prezzo' WHERE IdPianta='$idPianta'";
  
     $db->query($q);
- 
-    
+
 }
 
+
+/*
+ * visualizza il profilo dell'amministratore
+ */
 function AdminProfilo(){
     PianteFinite();
     include 'php/view/admin/Profilo.php';
-    /*    AggiungiPiante();
-    ModificaPiante();
-    AggiungiGiardiniere();
-  */
 }
 
+/*
+ * visualizza le piante la cui disponibilita sta per terminare 
+ */
 function PianteFinite(){
     global $db;
-    $q ="SELECT * FROM pianta WHERE Disponibilita<30";
+    $q ="SELECT * FROM pianta WHERE Disponibilita<5";
     $res = $db->query($q);
     
         $piante[mysql_num_rows($res)]= new Pianta();
@@ -715,17 +792,17 @@ function PianteFinite(){
             $piante[$i]->setImmagine($row1['Immagine']);
             $piante[$i]->setNome($row1['Nome']);
             $piante[$i]->setPrezzo($row1['Prezzo']);
-            $piante[$i]->setStagioneFioritura($row1['StagioneFioritura']);
             $i++;
         }
-    include 'php/view/admin/PianteEsaurite.php';
-    
-     
-
-    
+    include 'php/view/admin/PianteEsaurite.php'; 
 }
    
 
+/*
+ * Aggiunge una certa quantita di esemplari di una pianta
+ * $IdPianta = specifica l'id della pianta 
+ * $quant= specifica la quantità da aggiungere
+ */
 function AdminAggiungiPiante($idPianta,$quant){
     global $db;
     $q ="UPDATE pianta SET `Disponibilita`=Disponibilita+'$quant'
@@ -733,11 +810,16 @@ function AdminAggiungiPiante($idPianta,$quant){
     $res = $db->query($q);
 }
 
+
+/*
+ * visualizza l'elenco delle piante acquistate da un cliente
+ * $idPersonale = determina Id del cliente
+ */
 function ClienteAcquisti($idPersonale){
     global $db;
     $q ="SELECT DISTINCT * FROM acquisto, pianta WHERE cliente_fk=$idPersonale AND pianta_fk=IdPianta";
     $res = $db->query($q);
-    
+ 
         $piante[mysql_num_rows($res)]= new Pianta();
         $i=0;
         while($row1 = mysql_fetch_array($res)){
@@ -748,12 +830,15 @@ function ClienteAcquisti($idPersonale){
             $piante[$i]->setImmagine($row1['Immagine']);
             $piante[$i]->setNome($row1['Nome']);
             $piante[$i]->setPrezzo($row1['Prezzo']);
-            $piante[$i]->setStagioneFioritura($row1['StagioneFioritura']);
+            
             $i++;
         }
     include 'php/view/cliente/Acquisti.php';
 }
 
+/*
+ * visualizza le informazioni generali di un personale (nome , cognome ,username)
+ */
 function ClienteInfoPersonali($idPersonale){
     global $db;
    
@@ -763,90 +848,90 @@ function ClienteInfoPersonali($idPersonale){
     
     $personale = new Personale();
     $personale->setUsername($row['Username']);
-    $personale->setPassword($row['Password']);
-    $personale->setEmail($row['Email']);
-    $personale->setIndirizzo($row['Indirizzo']);
-    $personale->setCap($row['Cap']);
     $personale->setNome($row['Nome']);
     $personale->setCognome($row['Cognome']);
-    $personale->setCitta($row['Citta']);
-    $personale->setTelefono($row['Telefono']);
     include 'php/view/cliente/InfoPersonali.php';
 }
-
+/* 
+ * visualizza le prenotazioni dei giardinieri effettuate dai clienti
+ * idPersonale= Id del cliente
+ */
 function ClienteGiardiniere($idPersonale){
     global $db;
     $mansione="giardiniere";
     $b = date('Y-m-d');
-    
     $q ="SELECT DISTINCT * 
-FROM giorno, personale
-WHERE cliente_fk='$idPersonale'
-AND DAY >  '$b'
-AND giardiniere_fk = Id";
-   
+    FROM giorno, personale
+    WHERE cliente_fk='$idPersonale'
+    AND DAY >  '$b'
+    AND giardiniere_fk = Id";
     $res = $db->query($q);
-   
-        $personale[mysql_num_rows($res)]= new Personale();
-        $i=0;
-        while($row = mysql_fetch_array($res)){
-            $personale[$i] = new Personale();
-            $personale[$i]->setUsername($row['Username']);
-            $personale[$i]->setNome($row['Nome']);
-
-            $personale[$i]->setCognome($row['Cognome']);
-            $personale[$i]->setData($row['day']);
-            
-            $i++;
-        }
+    $personale[mysql_num_rows($res)]= new Personale();
+    $i=0;
+    while($row = mysql_fetch_array($res)){
+        $personale[$i] = new Personale();
+        $personale[$i]->setUsername($row['Username']);
+        $personale[$i]->setNome($row['Nome']);
+        $personale[$i]->setCognome($row['Cognome']);
+        $personale[$i]->setData($row['day']);
+        $i++;
+    }
     include 'php/view/cliente/ClienteGiardiniere.php';
 }
+
+/*
+ * visualizza l'agenda settimanale del giardiniere
+ * idPersonale = identifica Id del giardiniere
+ */
 function GiardiniereAgenda($idPersonale){
     global $db;
     $personale[7] = new Personale();
     $data=  date('d-m-Y');
     $g=86400;
-    
     $t = time();
-   
-    
     for ($i=0;$i<7;$i++){
         $data = date('d-m-Y',$t+=$g);
         $dg = date('Y-m-d',$t);
         $personale[$i]= new Personale();
         $personale[$i]->setData($data);
         $q="SELECT * 
-FROM giorno, personale
-WHERE giardiniere_fk='$idPersonale'
-AND DAY =  '$dg'
-AND cliente_fk = Id ";
+        FROM giorno, personale
+        WHERE giardiniere_fk='$idPersonale'
+        AND DAY =  '$dg'
+        AND cliente_fk = Id ";
         $res = $db->query($q);
         $row = mysql_fetch_array($res);
-           
-            $personale[$i]->setUsername($row['Username']);
-            $personale[$i]->setNome($row['Nome']);
-            $personale[$i]->setIndirizzo($row['Indirizzo']);
-            $personale[$i]->setTelefono($row['Telefono']);
-            $personale[$i]->setCognome($row['Cognome']);
-            
+        $personale[$i]->setUsername($row['Username']);
+        $personale[$i]->setNome($row['Nome']);
+        $personale[$i]->setIndirizzo($row['Indirizzo']);
+        $personale[$i]->setTelefono($row['Telefono']);
+        $personale[$i]->setCognome($row['Cognome']);
     }
     include 'php/view/giardiniere/Agenda.php';
-    
 }
 
+/*
+ * visualizza il profilo del giardiniere
+ */
 function GiardiniereProfilo(){
     $personale=$_SESSION['logged'];
     ClienteInfoPersonali(ReturnId($personale));
     GiardiniereAgenda(ReturnId($personale));
 }
 
+/*
+ * visualizza il profilo del cliente
+ */
 function ClienteProfilo(){
     $personale=$_SESSION['logged'];
     ClienteInfoPersonali(ReturnId($personale));
     ClienteAcquisti(ReturnId($personale));
     ClienteGiardiniere(ReturnId($personale));
 }
-    
+ 
+/*
+ * visualizza header in base all'utente che accede al sito
+ */  
 function VerificaHeaderPersonale(){
     if (isset($_SESSION['logged'])){
         $username=$_SESSION['logged'];
@@ -858,7 +943,9 @@ function VerificaHeaderPersonale(){
     
 }
 
-
+/*
+ * visualizza nav in base all'utente che accede al sito
+ */  
 function VerificaNavPersonale(){
     if(isset($_SESSION['logged'])){
         $personale=$_SESSION['logged'];
@@ -877,7 +964,9 @@ function VerificaNavPersonale(){
 }
     
 
-
+/*
+ * visualizza aside in base all'utente che accede al sito
+ */  
 function VerificaAsidePersonale(){
     SceltaSpecie();
     if(isset($_SESSION['logged'])){
@@ -892,6 +981,8 @@ function VerificaAsidePersonale(){
  }
  
  /*
+  * visualizza PageGiardiniere cioè i giardinieri disponibili 
+  * in un determinato giorno
   * $giorno = -1 semplice PageGiardinieri
   * altrimenti in piu la scelta del giardiniere
   */
@@ -900,15 +991,12 @@ function VerificaAsidePersonale(){
     if($giorno!="-1"){
             FormLavoro($giorno);
     }
-  
-     
  }
-
+/*
+ * visualizza Homepage
+ */
  function Homepage(){
     include 'php/view/other/Homepage.php';
-    
- 
-     
  }
 
 

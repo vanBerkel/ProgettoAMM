@@ -1,16 +1,18 @@
 <?php
-
+/*
+ * sono presenti tutti gli eventi che modificano il main
+ */
 $mansione="";
 if (isset($_SESSION['logged'])){
     $mansione = ReturnMansione($_SESSION['logged']);
 }
 
-$menu="";        
+$menu=""; //definisce quale pulsante del menu di navigazione si è digitato       
 if (isset($_GET['menu'])){
     $menu=$_GET['menu'];
 }
 
-$job="";        
+$job="";// definisce un evento generale che può sempre accaddere anche se non si è connessi al sito        
 if (isset($_GET['job'])){
     $job=$_GET['job'];
 }else{
@@ -19,12 +21,12 @@ if (isset($_GET['job'])){
     }
 }
 
-$elenco="";        
+$elenco="";      //definisce la lettera che si è digitata per elenco piante  
 if (isset($_GET['elenco'])){
     $elenco=$_GET['elenco'];
 } 
 
-switch ($menu){
+switch ($menu){ //pulsante menu di navigazione eventi che possono accadere sempre
     case "piante":
             ElencoPianteTipo(0,0);
         break;
@@ -40,7 +42,7 @@ switch ($menu){
 }
 
 
-switch ($mansione){
+switch ($mansione){//in base alla mansione certi eventi possono accadere
     case "amministratore":
         $inputAdmin="";
         if (isset($_POST['admin'])){
@@ -57,127 +59,116 @@ switch ($mansione){
                             $mansione="giardiniere";
                             FormAggiungiPersonale($mansione);
                         }
-                        
                     case "Nuova":
                         if (isset($_POST['pianta'])){
                             //aggiunge un nuovo pianta
-                            
                             FormAggiungiPianta();
                         }
                         if (isset($_POST['specie'])){
+                            //aggiunge una nuova specie
                             FormAggiungiSpecie();
-                           
-                       }
+                        }
                         break;
                     case "Modifica":
-                        
                         switch ($_POST['modifica']){
                             case "pianta":
-                                
+                                //modifica una pianta
                                 FormModificaPianta($_POST['IDPianta']);
                             break;
                         }
                     case "Inserisci":
                         if (isset($_POST['inserisci'])){
-                        switch ($_POST['inserisci']){
-                        case "pianta":                       
-                            $id=CercaPianta($_POST['nome']);
-                            if (($_POST['id']=='-1')&&($id==NULL)){
-                                
-                                  AggiungiPianta($_POST['nome'],$_POST['descrizione'],
-                                            $_POST['disponibilita'],$_POST['specie'],$_POST['immagine'],$_POST['prezzo']);
-                                  echo "<h2> la pianta è stata aggiunta </h2>";
-                                  AdminProfilo();
-                            }else{ if ($id==($_POST['id'])||(($id)==NULL)){//si tratta di una modifica
-                                        ModificaPianta($_POST['id']);
-                                        echo "<h2> la pianta è stata modificata </h2>";
-                                            AdminProfilo();
-                                    }else{
-                                        echo "<p> !!!la pianta non è stata aggiunta!!! nome pianta già esistente </p>";
-                                        FormAggiungiPianta();
+                            switch ($_POST['inserisci']){
+                                case "pianta":                       
+                                    $id=CercaPianta($_POST['nome']);
+                                    if (($_POST['id']=='-1')&&($id==NULL)){
+                                          //inserisce una nuova pianta nel database
+                                          AggiungiPianta($_POST['nome'],$_POST['descrizione'],
+                                                    $_POST['disponibilita'],$_POST['specie'],$_POST['immagine'],$_POST['prezzo']);
+                                          echo "<h2> la pianta è stata aggiunta </h2>";
+                                          AdminProfilo();//aggiorna profilo amministratore
+                                    }else{ if ($id==($_POST['id'])||(($id)==NULL)){
+                                                //modifica pianta
+                                                ModificaPianta($_POST['id']);
+                                                echo "<h2> la pianta è stata modificata </h2>";
+                                                    AdminProfilo();//aggiorna profilo amministratore
+                                            }else{
+                                                echo "<p> !!!la pianta non è stata aggiunta!!! nome pianta già esistente </p>";
+                                                FormAggiungiPianta();//aggiorna profilo amministratore
+                                            }
                                     }
+                                break;
+                                case "specie":
+                                    //tenta di aggiungere una nuova specie
+                                    $id=CercaSpecie($_POST['nome']);
+                                    if ($id==NULL){
+                                        //aggiungi specie
+                                          AggiungiSpecie($_POST['nome'],$_POST['descrizione']);
+                                          echo "<h2> la specie è stata aggiunta </h2>";
+                                          AdminProfilo();//aggiorna profilo amministratore
+                                      }else{
+                                        echo "<p> !!!la specie non è stata aggiunta!!! nome specie già esistente </p>";
+                                        FormAggiungiSpecie();//aggiorna profilo amministratore
+                                       }
+
+                                break;
+                                case "personale": //tenta di aggiungere un giardiniere nel database
+                                    $mansione="giardiniere";
+                                    $i=AggiungiPersonale($mansione);
+                                    switch ($i){
+                                        case 0://giardiniere aggiunto correttamente
+                                            echo "<h2> il giardiniere è stato aggiunto </h2>";
+                                            AdminProfilo();
+                                            break;
+                                        case 1: //nome utente già utilizzato
+                                                echo "<p> !!!il giardiniere non è stata aggiunto!!! nome utente già esistente </p>";
+                                                FormAggiungiPersonale($mansione);
+                                                break;
+                                        case 2: //la password non combaccia
+                                            echo "<p> !!!il giardiniere non è stata aggiunto!!! password non corretta </p>";
+                                            FormAggiungiPersonale($mansione);
+                                            break;
+                                        case 3: // non sono stati inseriti i campi obligatori
+                                            echo "<p> !!!il giardiniere non è stata aggiunto!!! non sono stati compilati tutti i campi </p>";
+                                            FormAggiungiPersonale($mansione);
+                                            break;
+                                    }
+
+                                break;    
                             }
-                        break;
-                        case "specie":
-                        
-                            $id=CercaSpecie($_POST['nome']);
-                            if ($id==NULL){
-                                  AggiungiSpecie($_POST['nome'],$_POST['descrizione']);
-                                  echo "<h2> la specie è stata aggiunta </h2>";
-                                  AdminProfilo();
-                              }else{
-                                echo "<p> !!!la specie non è stata aggiunta!!! nome specie già esistente </p>";
-                                FormAggiungiSpecie();
-                               }
-                           
-                        break;
-                        case "personale":
-                            $mansione="giardiniere";
-                            $i=AggiungiPersonale($mansione);
-                            switch ($i){
-                                case 0://giardiniere aggiunto correttamente
-                                    echo "<h2> il giardiniere è stato aggiunto </h2>";
-                                    AdminProfilo();
-                                    break;
-                                case 1: //nome utente già utilizzato
-                                        echo "<p> !!!il giardiniere non è stata aggiunto!!! nome utente già esistente </p>";
-                                        FormAggiungiPersonale($mansione);
-                                        break;
-                                case 2: //la password non combaccia
-                                    echo "<p> !!!il giardiniere non è stata aggiunto!!! password non corretta </p>";
-                                    FormAggiungiPersonale($mansione);
-                                    break;
-                                case 3: // non sono stati inseriti i campi obligatori
-                                    echo "<p> !!!il giardiniere non è stata aggiunto!!! non sono stati compilati tutti i campi </p>";
-                                    FormAggiungiPersonale($mansione);
-                                    break;
-                            }
-                  
-                        break;    
-                       
                         }
-                       
-                        }
-                        //inserisce la pianta
-                        break;
-                    case "Salva" ://inserisce un nuovo giardiniere
                         
                         break;
                     default:
                         if ((($menu=="")&&($elenco=="")
                                 &&($job==""))||($menu=="profilo")){
-                            AdminProfilo();
+                            AdminProfilo();//aggiorna profilo amministratore
                         }
                         if ((($menu=="clienti")&&($elenco=="")
                                 &&($job==""))){
                             $mansione="cliente";
-                            
-                            ElencoPersonale($mansione);
+                            ElencoPersonale($mansione); //elenco dei clienti
                         }
                         if ((($menu=="giard")&&($elenco=="")
                                 &&($job==""))){
                             $mansione="giardiniere";
-                            
-                            ElencoPersonale($mansione);
+                            ElencoPersonale($mansione);//elenco dei giardinieri
                         }
                     break;
                 }
-            
-            
         break;
-    case "cliente" :
+    case "cliente" : //gestione sessione del cliente
             $cliente="";        
             if (isset($_GET['personale'])){
                 $cliente=$_GET['personale'];
             }else {
                  if (isset($_POST['personale'])){
                     $cliente=$_POST['personale'];
-            }
+                }
             }
             switch ($cliente){
                 case "info":
                     InfoPersonali();
-                    
                     break;
                 case "Modifica":
                     Modifica_Profilo();
@@ -192,9 +183,7 @@ switch ($mansione){
                     break;
       
             }
-    
-            
-        break;
+            break;
     case "giardiniere" :
         if (($menu=="profilo")||(($menu=="")&&($elenco=="")&&($job==""))){
                          GiardiniereProfilo(); 
@@ -203,7 +192,6 @@ switch ($mansione){
     default ://nessun account
         $mansione="cliente"; 
         if ($job=="Registrati"){
-            
             FormAggiungiPersonale($mansione);
          }
         if ($job=="Salva"){

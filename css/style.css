@@ -1,10 +1,15 @@
 body{
     background: url("../images/sfondo1.jpg");
     color:black;
-    width:90%;
+    width:85%;
     margin: 0px auto;
 
 
+}
+#ListaSpecie{
+    padding-top: 10%;
+    
+    
 }
 
 #container{
@@ -15,7 +20,11 @@ body{
 }
 
 #header{
-	height:122px;
+    
+	height:200px;
+}
+#header p{
+      
 }
 
 #nav{
@@ -23,7 +32,57 @@ body{
          border-bottom:2px solid green;
          height:50px;
 }
-  
+
+#nav ul li:hover ul { display: block; }
+
+table{
+    
+}
+#nav li {
+	float: left;
+}
+
+#nav li a {
+	//display: block;
+	padding: 0 30px 0 30px;
+                font-family: Arial;
+                color: green;
+                 font-weight:bold;
+                 
+}
+
+
+
+#main{
+    width: 74%;
+    float:left;
+    border-right:2px solid green;    
+    
+}
+
+
+#aside{
+    float:right;
+    width: 25%;
+    
+    
+}
+#aside form{
+	//margin: 20px;
+	//margin-bottom:40px;
+	
+}
+#aside input[type="submit"]{
+	
+}
+
+#aside fieldset {
+	width:200px;
+
+
+	 
+}
+
 #sub{
     border-top:2px solid green;
     width:100%;
@@ -43,7 +102,7 @@ top:0px;
 
 
 fieldset{
-      margin:50px;
+      //margin:50px;
       border-color:transparent; 
 }
 
@@ -51,17 +110,39 @@ fieldset{
 	padding-left:100px;
 	font-size:50px;
 }
-#logo img{
-       position:absolute;
-       top:0px;
-       left:580px;
-       width:280px;
+.profilo{
+    position: absolute;
+    left:80%;
 }
+.profilo li {
+	//display: block;
+	
+	//display: block;
+	left:50%;
+	text-decoration: none;
+	font-size: 12px;
+	text-transform: none;
+	border-right: 1px solid #fff;
+        position: absolute;
+        
+}
+
+
+.home{
+  
+}
+#logo img{
+       
+      position: absolute;
+       height:170px;
+}
+
 #angolo img{
-    float:left;
-    position:absolute;
-    bottom:0%;
-    width:7%;
+    bottom:0;
+    left:0;
+    position:fixed;
+   
+    height:40%;
 }
 
 
@@ -70,32 +151,60 @@ fieldset{
     color: green;
  }
 
-   h2{font-family: Brush Script MT;
+ #header h2{
+    text-align: center;
+     margin:0px auto;
+    font-size: 22px;
+    font-style: oblique;
+ }
+ 
+ 
+h2{font-family: Brush Script MT;
        color:green;
-       position:absolute;
-       top:75px; left:400px;
-       font-size:25px;
+     font-size:40px;  
+       
 }
 
+#main h2{
+    text-align: center;
+    border-botom: 2px solid green;
+    
+}
 
 p{
         font-family: Arial;
         font-weight: bold;
         font-style: Italic;
         color: green;
-size:8%;
+        size:8%;
+        line-height: 25px;
+        text-align:justify;
 }
 
+#ElencoPianteLettera{
+    width: 96%;
+    margin:2%;
+    border: 5px dotted green;
+    border-radius: 16px;
+    text-align: center;
+    
 
+}
 
-
+#ElencoPianteLettera a{
+    font-family: Arial Rounded MT Bold;;
+    padding:7px;
+    font-size: 14px;
+    
+            
+}
 /**classe dell'immagine delle piante**/
 
 
 .dettagli{
-
-	padding:20px;
+	padding:5%;
 	float:left;
+        width: 40%;
 
 
 }
@@ -109,16 +218,18 @@ size:8%;
 .Specie  h1{
 	padding-left:40px;
 	font-size:46px;
-font-family: Monotype Corsiva; 	
+    font-family: Monotype Corsiva; 	
 	
 
 
 }
 
+
 .Specie p{
  margin:20px;
 font-family: Monotype Corsiva; 
 }
+
 
 .Specie label{
                 margin:70px;
@@ -128,22 +239,59 @@ font-family: Monotype Corsiva;
 }
 
 
-*select{
-	width:50px;
-	border:2px solid #4dff12
 
-}
+
 
 label {
 	color:green;
-                font-family: Arial Rounded MT Bold;
-                
+        font-family: Arial Rounded MT Bold;
+        font-size: 20px;        
+}
+#ClienteGiardiniere{
+    float:left;
+    width:49%;
+    text-align: center;
 }
 
-table{
-	border:2px;
-	border-color:#f2ead7;
+#InfoPersonali{
+    float:left;
+    width:49%;
+    text-align: center;
+}
+#Acquisti{
+    float:right;
+    width:49%;
+    text-align: center;
+}
+#Acquisti table{
+    margin-right: 10px;
+}
 
+#ClienteGiardiniere table{
+    margin-left: 10px;
+}
+#InfoPersonali p{
+    border: 1px solid green;
+}
+a:hover{
+    text-decoration: underline;
+}
+table{
+    margin:0px auto;
+    margin-bottom: 20px;
+	font-family: Arial Rounded MT Bold;
+color: green;
+border: 1px solid #2d8c1f;
+text-align: center;
+}
+th{
+    font-size:20px;
+}
+td{
+    
+}
+tr{
+    border-bottom: 2px solid green;
 }
 
 a{
@@ -156,62 +304,7 @@ a{
 }
 
 
-#nav li {
-	float: left;
-}
 
-#nav li a {
-	//display: block;
-	padding: 0 30px 0 30px;
-                font-family: Arial;
-                color: green;
-                 font-weight:bold;
-                 
-}
-
-#aside form{
-	//margin: 20px;
-	//margin-bottom:40px;
-	
-}
-#aside input[type="submit"]{
-	
-}
-
-#aside fieldset {
-	width:200px;
-
-
-	 
-}
-.menu{
-	-moz-box-shadow:inset -2px 0px 14px -5px #c1ed9c;
-	-webkit-box-shadow:inset -2px 0px 14px -5px #c1ed9c;
-	box-shadow:inset -2px 0px 14px -5px #c1ed9c;
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #9dce2c), color-stop(1, #8cb82b) );
-	background:-moz-linear-gradient( center top, #9dce2c 5%, #8cb82b 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#9dce2c', endColorstr='#8cb82b');
-	background-color:#9dce2c;
-	border:3px solid #83c41a;
-	//display:inline-block;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:16px;
-	font-weight:bold;
-	padding:12px 50px;
-	text-decoration:none;
-	text-shadow:14px 4px 0px #689324;
-        
-}.menu:hover {
-	cursor: pointer;
-        background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #8cb82b), color-stop(1, #9dce2c) );
-	background:-moz-linear-gradient( center top, #8cb82b 5%, #9dce2c 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#8cb82b', endColorstr='#9dce2c');
-	background-color:#8cb82b;
-}.menu:active {
-	position:relative;
-	top:1px;
-}
 
 
 input[type="submit"]{
@@ -250,7 +343,7 @@ td,th {
 	font-size: 14px;
 }
 
-/* Codice per il men� principale */
+
 
 
 
@@ -260,7 +353,7 @@ td,th {
 /* Codice per i sottomen� */
 
 
-#nav ul li:hover ul { display: block; }
+
 ul {
 
 	list-style: none;
@@ -287,9 +380,32 @@ ul li a.extend {
 
 li fieldset {
  background:#f2ead7;
+ border-radius: 20px;
 
 }
+#Home img{
+    margin: 20px;
+    
+    
+}
+
+
 
 fieldset input {
 margin:5px;
 }
+
+
+#foot{
+    float:right;
+       width: 100%;
+    
+}
+#sub{
+    color:green;
+    float:right;
+    border-top:2px solid green;
+    width:100%;
+    text-align: center;
+}
+

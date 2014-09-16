@@ -249,12 +249,9 @@ function FormSpecie($val){
     $row = mysql_fetch_array($res); 
     $specie = new Specie();
     $specie->setDescrizione($row['Descrizione']);
-    $specie->setInfoMetodoColt($row['InfoMetodoColt']);
     $specie->setId($row['IdSpecie']);
-    $specie->setImmagine($row['Immagine']);
     $specie->setNome($row['Nome']);
-    $specie->setCarEsposizione($row['CarEsposizione']);
-
+ 
     include("php/view/other/SpecieVis.php");
     ElencoPianteTipo(mysql_num_rows($res),$val);
     

@@ -151,11 +151,14 @@ fieldset{
     color: green;
  }
 
- #header h2{
-    text-align: center;
+ #header p{
+     position:absolute;
+     top: 30%;
+    text-align: left;
      margin:0px auto;
-    font-size: 22px;
+    font-size: 20px;
     font-style: oblique;
+    
  }
  
  
@@ -213,6 +216,7 @@ p{
 	margin-top:5px;
 	float:left;
 	width:100px;
+        height:100px;
 }
 
 .Specie  h1{

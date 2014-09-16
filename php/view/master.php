@@ -21,6 +21,7 @@ pagina master, contiene tutto il layout della applicazione
 </head>
 <body>
 <div id="container">
+    <a href="html/html.html">help</a>
 <?php 
     include("header.php");
     include("nav.php");
@@ -32,6 +33,7 @@ pagina master, contiene tutto il layout della applicazione
     
    
     Copyright © 2014 - Viale Verde. Tutti i diritti riservati. Webdesign Pier Paolo Annis  
+    
     
     
 </div>

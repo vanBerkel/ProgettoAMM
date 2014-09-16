@@ -1,6 +1,13 @@
    <!DOCTYPE html>
     <!-- 
-
+pagina master, contiene tutto il layout della applicazione 
+         le varie pagine vengono caricate a "pezzi" a seconda della zona
+         del layout:
+         - header (header)
+         - nav (menu)
+         - main (la parte centrale con il contenuto)
+         - aside (sidebar destra)
+         - footer (footer)
     -->
 <html>
 <head>
@@ -25,7 +32,7 @@
     
    
     Copyright © 2014 - Viale Verde. Tutti i diritti riservati. Webdesign Pier Paolo Annis  
-    <br>**la descrizione del sito è nel file readme.word
+    
     
 </div>
  
